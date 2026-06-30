@@ -1,5 +1,8 @@
 # RowdyBard Product Design Document
 
+## Repository Note
+RowdyBard is documented inside the existing `allyjbasso-bit/allyjbasso` repository only. This file is product documentation, not a scaffolded app or separate project.
+
 ## Product Summary
 RowdyBard is a creative writing companion for people who want help turning rough ideas into vivid stories, scenes, characters, and publishable drafts without losing their own voice.
 
