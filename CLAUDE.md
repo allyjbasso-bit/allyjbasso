@@ -6,6 +6,19 @@ still cleans, runs a small team, and handles leads herself. The goal is **not** 
 features — it is the **best** operating system for this niche. Every time Rachel has to
 stop cleaning to do office work, CleanDesk should automate it or reduce it to one tap.
 
+## The Rachel Test (the bar every feature must pass)
+Before adding anything, ask:
+
+> **Does this eliminate one thing Rachel has to remember, one text she has to send,
+> or one app she has to open?**
+
+If it eliminates none of those, it probably does not belong — even if it is on the
+roadmap. When proposing or building something, say which of the three it removes.
+Prefer surfacing the right thing automatically over adding a new screen for Rachel to
+go check; zero or one tap beats a new place to manage. Foundation work (auth, database,
+the data-access seam) passes indirectly — it is what later lets the app remember things
+and send things for her — so tie it back to that rather than exempting it.
+
 ## GitHub is the source of truth
 - Repository: `allyjbasso-bit/allyjbasso`, branch `main`.
 - **Pull `origin/main` before editing.** Inspect the real code; assume nothing.
@@ -19,10 +32,11 @@ stop cleaning to do office work, CleanDesk should automate it or reduce it to on
 - `CLAUDE.md` (this file)
 
 ## Before building any feature, ask
-1. Does this already exist? (Improve it instead of recreating it.)
-2. Can it be improved rather than rebuilt?
-3. Does it fit the current roadmap phase?
-4. Is there a simpler implementation?
+1. Does it pass the Rachel Test above? (Remember / text / app — which does it remove?)
+2. Does this already exist? (Improve it instead of recreating it.)
+3. Can it be improved rather than rebuilt?
+4. Does it fit the current roadmap phase?
+5. Is there a simpler implementation?
 
 If a feature belongs **later** in the roadmap, say so instead of building it now.
 
