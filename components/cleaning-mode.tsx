@@ -4,9 +4,10 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 import { Icon, iconPaths } from "@/components/icons";
 import { generateFacebookDraft, generateGoogleBusinessDraft, generateJobSummary, generateReviewRequestDraft, structureVoiceNote } from "@/lib/ai-mocks";
-import { cleanerMessages } from "@/lib/mock-data";
-import type { Client, Job, Role } from "@/lib/mock-data";
+import type { Client, Job, Role } from "@/lib/data";
 import { roleHref } from "@/lib/role-utils";
+
+type CleanerMessage = { jobId: string; from: string; message: string; time: string };
 
 const checklistByType: Record<Job["type"], string[]> = {
   "Recurring Clean": [
@@ -65,7 +66,7 @@ const completionSteps = [
   "Schedule next clean"
 ];
 
-export function CleaningMode({ job, client, role = "rachel" }: { job: Job; client?: Client; role?: Role }) {
+export function CleaningMode({ job, client, messages, role = "rachel" }: { job: Job; client?: Client; messages: CleanerMessage[]; role?: Role }) {
   const [completed, setCompleted] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
   const [checkedTasks, setCheckedTasks] = useState<string[]>([]);
@@ -83,7 +84,6 @@ export function CleaningMode({ job, client, role = "rachel" }: { job: Job; clien
     { label: "Products", value: supplies.join(", ") || "Use standard kit" },
     { label: "Surfaces", value: client?.countertopType ?? job.alerts[0] }
   ];
-  const messages = cleanerMessages.filter((message) => message.jobId === job.id);
 
   if (completed) {
     return (

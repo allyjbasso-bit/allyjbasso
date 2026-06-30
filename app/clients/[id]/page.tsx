@@ -3,11 +3,19 @@ import { notFound } from "next/navigation";
 import { AppShell, ComingSoonButton } from "@/components/app-shell";
 import { Icon, iconPaths } from "@/components/icons";
 import { generateHouseBrainReminders, structureVoiceNote } from "@/lib/ai-mocks";
-import { clients, houseHealthScores, houseTimelines, photoFolders, recurringRequests } from "@/lib/mock-data";
+import {
+  getClientById,
+  getClients,
+  getCurrentOrganizationId,
+  getHouseHealthScore,
+  getHouseTimeline,
+  getPhotoFolders,
+  getRecurringRequests
+} from "@/lib/data";
 import { normalizeRole, roleHref } from "@/lib/role-utils";
 
 export function generateStaticParams() {
-  return clients.map((client) => ({ id: client.id }));
+  return getClients(getCurrentOrganizationId()).map((client) => ({ id: client.id }));
 }
 
 type PageProps = {
@@ -19,7 +27,8 @@ export default async function ClientDetailPage({ params, searchParams }: PagePro
   const { id } = await params;
   const { role: roleParam } = await searchParams;
   const role = normalizeRole(roleParam);
-  const client = clients.find((item) => item.id === id);
+  const organizationId = getCurrentOrganizationId();
+  const client = getClientById(organizationId, id);
 
   if (!client) {
     notFound();
@@ -27,12 +36,13 @@ export default async function ClientDetailPage({ params, searchParams }: PagePro
 
   const reminders = generateHouseBrainReminders(client);
   const structuredNote = structureVoiceNote("Customer got a new puppy, don't clean the office anymore, and wants baseboards every other visit.");
-  const timeline = houseTimelines[client.id] ?? client.visitHistory;
-  const requests = recurringRequests[client.id] ?? [
+  const timeline = getHouseTimeline(organizationId, client.id) ?? client.visitHistory;
+  const requests = getRecurringRequests(organizationId, client.id) ?? [
     { cadence: "Every visit", task: "Follow saved house instructions" },
     { cadence: "Monthly", task: "Ask Rachel if any recurring tasks should be added" }
   ];
-  const health = houseHealthScores[client.id];
+  const health = getHouseHealthScore(organizationId, client.id);
+  const photoFolders = getPhotoFolders(organizationId);
 
   return (
     <AppShell role={role} title="House Brain">

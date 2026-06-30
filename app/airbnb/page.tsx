@@ -1,5 +1,5 @@
 import { AppShell, ComingSoonButton } from "@/components/app-shell";
-import { turnovers } from "@/lib/mock-data";
+import { getCurrentOrganizationId, getTurnovers } from "@/lib/data";
 import { normalizeRole } from "@/lib/role-utils";
 
 const checklist = [
@@ -25,6 +25,7 @@ export default async function AirbnbPage({ searchParams }: PageProps) {
   const isRachel = role === "rachel";
   const isEmily = role === "emily";
   const isNoah = role === "noah";
+  const turnovers = getTurnovers(getCurrentOrganizationId());
 
   return (
     <AppShell role={role} title={isNoah ? "Noah Properties" : "Airbnb Turnovers"}>

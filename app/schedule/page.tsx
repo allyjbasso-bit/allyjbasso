@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { AppShell, ComingSoonButton } from "@/components/app-shell";
 import { Icon, iconPaths } from "@/components/icons";
-import { assignedPeople, jobs, type Job, type JobStatus, type JobType } from "@/lib/mock-data";
+import { getCleaners, getCurrentOrganizationId, getJobs, type Job, type JobStatus, type JobType } from "@/lib/data";
 import { normalizeRole, roleHref } from "@/lib/role-utils";
 
 const days = ["Mon", "Tue", "Wed", "Thu", "Fri"];
@@ -29,7 +29,9 @@ type PageProps = {
 export default async function SchedulePage({ searchParams }: PageProps) {
   const { role: roleParam } = await searchParams;
   const role = normalizeRole(roleParam);
-  const visiblePeople = role === "becca" ? ["Becca"] : role === "rachelle" ? ["Rachelle"] : assignedPeople;
+  const organizationId = getCurrentOrganizationId();
+  const jobs = getJobs(organizationId);
+  const visiblePeople = role === "becca" ? ["Becca"] : role === "rachelle" ? ["Rachelle"] : getCleaners(organizationId);
 
   return (
     <AppShell
