@@ -25,11 +25,11 @@ export default async function InboxPage({ searchParams }: PageProps) {
   const high = inboxItems.filter((item) => item.priority === "High").length;
 
   return (
-    <AppShell role={role} title="Daily Inbox">
+    <AppShell role={role} title="Needs My Attention">
       <section className="rounded-3xl bg-white p-4 shadow-sm">
-        <p className="text-sm font-black text-emerald-700">Morning to-do list</p>
+        <p className="text-sm font-black text-emerald-700">Today's interruptions</p>
         <h2 className="mt-1 text-2xl font-black text-slate-950">{inboxItems.length} things need Rachel's attention</h2>
-        <p className="mt-2 text-sm font-semibold text-slate-500">{high} high priority interruptions collected in one place.</p>
+        <p className="mt-2 text-sm font-semibold text-slate-500">Stop checking Angi, Facebook, texts, voicemail, and cleaner messages. {high} high priority items are collected here.</p>
       </section>
 
       <section className="mt-4 space-y-3">

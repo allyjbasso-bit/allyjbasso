@@ -67,8 +67,11 @@ export default async function SchedulePage({ searchParams }: PageProps) {
                 <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-bold text-slate-600">{assigned.length} jobs</span>
               </div>
               <div className="space-y-3">
-                {assigned.map((job) => (
-                  <DispatchCard job={job} key={job.id} role={role} />
+                {assigned.map((job, index) => (
+                  <div key={job.id}>
+                    <DispatchCard job={job} role={role} />
+                    {index < assigned.length - 1 && <OpenSpace after={job} before={assigned[index + 1]} />}
+                  </div>
                 ))}
               </div>
             </section>
@@ -118,6 +121,16 @@ function Guardrail({ children }: { children: React.ReactNode }) {
     <div className="flex gap-2 rounded-3xl bg-amber-100 p-3 text-sm font-black text-amber-950">
       <Icon className="mt-0.5 h-5 w-5 shrink-0" path={iconPaths.alert} />
       {children}
+    </div>
+  );
+}
+
+function OpenSpace({ after, before }: { after: Job; before: Job }) {
+  return (
+    <div className="my-2 grid grid-cols-[1fr_auto_1fr] items-center gap-2 text-xs font-black text-slate-500">
+      <div className="h-px bg-slate-200" />
+      <span className="rounded-full bg-white px-3 py-1 shadow-sm">{after.endTime} open / drive until {before.time}</span>
+      <div className="h-px bg-slate-200" />
     </div>
   );
 }

@@ -42,7 +42,11 @@ export default async function MorePage({ searchParams }: PageProps) {
             </div>
             <div className="mt-3 grid grid-cols-2 gap-2">
               <button className="tap-target rounded-2xl bg-emerald-700 px-4 py-3 text-sm font-black text-white">Facebook caption draft</button>
+              <button className="tap-target rounded-2xl bg-white px-4 py-3 text-sm font-black text-slate-700 shadow-sm">Instagram draft</button>
               <button className="tap-target rounded-2xl bg-white px-4 py-3 text-sm font-black text-slate-700 shadow-sm">Google post draft</button>
+              <button className="tap-target rounded-2xl bg-white px-4 py-3 text-sm font-black text-slate-700 shadow-sm">Before/after collage</button>
+              <button className="tap-target rounded-2xl bg-white px-4 py-3 text-sm font-black text-slate-700 shadow-sm">Story draft</button>
+              <button className="tap-target rounded-2xl bg-white px-4 py-3 text-sm font-black text-slate-700 shadow-sm">Review request</button>
               <button className="tap-target rounded-2xl bg-white px-4 py-3 text-sm font-black text-slate-700 shadow-sm">Mark posted manually</button>
             </div>
             {(() => {
@@ -62,9 +66,12 @@ export default async function MorePage({ searchParams }: PageProps) {
         <div className="mt-3 space-y-2">
           {supplyInventory.map((item) => (
             <div className="flex items-center justify-between gap-3 rounded-2xl bg-slate-50 px-3 py-3" key={item.name}>
-              <div>
+              <div className="min-w-0 flex-1">
                 <p className="font-black text-slate-950">{item.name}</p>
                 <p className="text-sm font-semibold text-slate-500">{item.quantity} {item.unit} on hand</p>
+                <div className="mt-2 h-2 rounded-full bg-white">
+                  <div className={`h-2 rounded-full ${item.quantity <= item.reorderAt ? "bg-amber-400" : "bg-emerald-500"}`} style={{ width: `${Math.min(100, item.quantity * 22)}%` }} />
+                </div>
               </div>
               <span className={`rounded-full px-3 py-1 text-xs font-black ${item.quantity <= item.reorderAt ? "bg-amber-100 text-amber-950" : "bg-emerald-100 text-emerald-800"}`}>
                 {item.quantity <= item.reorderAt ? "Order another" : "Stocked"}

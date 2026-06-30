@@ -24,7 +24,7 @@ export function navForRole(role: Role) {
     return [
       { label: "Today", href: "/", iconKey: "dashboard" },
       { label: "Schedule", href: "/schedule", iconKey: "schedule" },
-      { label: "Jobs", href: "/clients", iconKey: "clients" },
+      { label: "Houses", href: "/clients", iconKey: "clients" },
       { label: "Notes", href: "/walkthrough", iconKey: "walkthrough" }
     ] as const;
   }
@@ -50,7 +50,7 @@ export function navForRole(role: Role) {
     { label: "Dashboard", href: "/", iconKey: "dashboard" },
     { label: "Inbox", href: "/inbox", iconKey: "leads" },
     { label: "Schedule", href: "/schedule", iconKey: "schedule" },
-    { label: "Clients", href: "/clients", iconKey: "clients" },
+    { label: "House Brain", href: "/clients", iconKey: "clients" },
     { label: "Airbnb", href: "/airbnb", iconKey: "walkthrough" },
     { label: "More", href: "/more", iconKey: "plus" }
   ] as const;
