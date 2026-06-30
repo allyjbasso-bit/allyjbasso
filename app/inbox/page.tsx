@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { AppShell } from "@/components/app-shell";
-import { inboxItems } from "@/lib/mock-data";
+import { getCurrentOrganizationId, getInboxItems } from "@/lib/data";
 import { normalizeRole, roleHref } from "@/lib/role-utils";
 
 type PageProps = {
@@ -22,6 +22,7 @@ const sourceHref: Record<string, string> = {
 export default async function InboxPage({ searchParams }: PageProps) {
   const { role: roleParam } = await searchParams;
   const role = normalizeRole(roleParam);
+  const inboxItems = getInboxItems(getCurrentOrganizationId());
   const high = inboxItems.filter((item) => item.priority === "High").length;
 
   return (

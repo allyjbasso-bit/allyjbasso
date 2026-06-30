@@ -2,7 +2,19 @@ import Link from "next/link";
 import { AppShell, ComingSoonButton } from "@/components/app-shell";
 import { Icon, iconPaths } from "@/components/icons";
 import { generateReminderTextPreviews } from "@/lib/ai-mocks";
-import { assignedPeople, clients, dailyInbox, followUpReminders, inboxItems, jobs, leads, supplyInventory, turnovers, type Job, type Role } from "@/lib/mock-data";
+import {
+  getCleaners,
+  getClients,
+  getCurrentOrganizationId,
+  getDailyInbox,
+  getFollowUpReminders,
+  getInboxItems,
+  getJobs,
+  getLeads,
+  getSupplyInventory,
+  getTurnovers,
+  type Role
+} from "@/lib/data";
 import { normalizeRole, personForRole, roleHref } from "@/lib/role-utils";
 
 type PageProps = {
@@ -29,6 +41,17 @@ export default async function DashboardPage({ searchParams }: PageProps) {
 }
 
 function RachelDashboard({ role }: { role: Role }) {
+  const organizationId = getCurrentOrganizationId();
+  const jobs = getJobs(organizationId);
+  const clients = getClients(organizationId);
+  const leads = getLeads(organizationId);
+  const supplyInventory = getSupplyInventory(organizationId);
+  const inboxItems = getInboxItems(organizationId);
+  const turnovers = getTurnovers(organizationId);
+  const assignedPeople = getCleaners(organizationId);
+  const dailyInbox = getDailyInbox(organizationId);
+  const followUpReminders = getFollowUpReminders(organizationId);
+
   const todaysJobs = jobs.filter((job) => job.day === "Mon");
   const nextJob = todaysJobs[0];
   const nextClient = clients.find((client) => client.id === nextJob.clientId);
@@ -160,6 +183,9 @@ function RachelDashboard({ role }: { role: Role }) {
 }
 
 function CleanerDashboard({ role }: { role: Role }) {
+  const organizationId = getCurrentOrganizationId();
+  const jobs = getJobs(organizationId);
+  const clients = getClients(organizationId);
   const person = personForRole(role);
   const assigned = jobs.filter((job) => job.cleaner === person);
   const nextJob = assigned[0];
@@ -231,6 +257,8 @@ function NoahDashboard({ role }: { role: Role }) {
 }
 
 function TurnoverList({ role }: { role: Role }) {
+  const turnovers = getTurnovers(getCurrentOrganizationId());
+
   return (
     <section className="mt-4 space-y-3">
       {turnovers.map((turnover) => (

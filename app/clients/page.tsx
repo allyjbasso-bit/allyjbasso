@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { AppShell } from "@/components/app-shell";
 import { Icon, iconPaths } from "@/components/icons";
-import { clients } from "@/lib/mock-data";
+import { getClients, getCurrentOrganizationId } from "@/lib/data";
 import { normalizeRole, roleHref } from "@/lib/role-utils";
 
 type PageProps = {
@@ -11,6 +11,7 @@ type PageProps = {
 export default async function ClientsPage({ searchParams }: PageProps) {
   const { role: roleParam } = await searchParams;
   const role = normalizeRole(roleParam);
+  const clients = getClients(getCurrentOrganizationId());
 
   return (
     <AppShell role={role} title="House Brain">

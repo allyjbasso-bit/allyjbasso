@@ -1,6 +1,6 @@
 import { AppShell, ComingSoonButton } from "@/components/app-shell";
 import { generateFacebookDraft, generateGoogleBusinessDraft } from "@/lib/ai-mocks";
-import { clients, contentDrafts, followUpReminders, jobs, supplyInventory } from "@/lib/mock-data";
+import { getClients, getContentDrafts, getCurrentOrganizationId, getFollowUpReminders, getJobs, getSupplyInventory } from "@/lib/data";
 import { normalizeRole } from "@/lib/role-utils";
 
 type PageProps = {
@@ -10,6 +10,12 @@ type PageProps = {
 export default async function MorePage({ searchParams }: PageProps) {
   const { role: roleParam } = await searchParams;
   const role = normalizeRole(roleParam);
+  const organizationId = getCurrentOrganizationId();
+  const clients = getClients(organizationId);
+  const contentDrafts = getContentDrafts(organizationId);
+  const followUpReminders = getFollowUpReminders(organizationId);
+  const jobs = getJobs(organizationId);
+  const supplyInventory = getSupplyInventory(organizationId);
 
   return (
     <AppShell role={role} title="Marketing Helper">

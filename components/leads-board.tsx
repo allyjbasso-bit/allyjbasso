@@ -3,9 +3,9 @@
 import { useState } from "react";
 import { AppShell } from "@/components/app-shell";
 import { generateLeadReplyDraft } from "@/lib/ai-mocks";
-import { leads, type Lead, type Role } from "@/lib/mock-data";
+import type { Lead, Role } from "@/lib/data";
 
-export function LeadsBoard({ role }: { role: Role }) {
+export function LeadsBoard({ leads, role }: { leads: Lead[]; role: Role }) {
   const [openLead, setOpenLead] = useState<string | null>(leads[0]?.id ?? null);
 
   return (
