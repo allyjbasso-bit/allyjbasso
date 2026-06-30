@@ -72,8 +72,8 @@ export function generateReminderTextPreviews(job: Job, client?: Client) {
     morning:
       `Good morning! You have ${job.cleaner === "Rachel" ? "your first" : "an assigned"} job today: ${job.clientName}. ` +
       `Supplies: ${(client?.productsNeeded ?? job.alerts).slice(0, 3).join(", ")}.`,
-    walkthrough: "Reminder: Walkthrough with Hannah today at 6:00 PM.",
-    airbnb: "Guest checks out at 10:00 AM. Rachelle assigned. Missing towels reported by Noah."
+    walkthrough: "Reminder: Walkthrough with Megan tomorrow at 9:00 AM.",
+    airbnb: "Grand Blanc Airbnb checkout is at 11:00 AM. Rachelle assigned. Missing towels reported by Noah."
   };
 }
 

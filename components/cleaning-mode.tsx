@@ -307,7 +307,7 @@ function CompletionPanel({ step, job, client }: { step: number; job: Job; client
       title: "Supplies running low?",
       body: "Update inventory before Rachel forgets what needs to be bought.",
       action: "Update supplies",
-      lines: ["Hardwood cleaner low", "Pet hair rollers still stocked", "Stone spray needed before Nora's next clean"]
+      lines: ["Granite cleaner low", "Pet hair rollers still stocked", "Stone spray needed before Jessica's next clean"]
     },
     {
       title: "Take before/after photos",

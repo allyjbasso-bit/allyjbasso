@@ -54,7 +54,7 @@ export default async function SchedulePage({ searchParams }: PageProps) {
 
       <div className="mb-4 space-y-2">
         <Guardrail>Becca has two jobs scheduled at 2:00 PM</Guardrail>
-        <Guardrail>Client requested Thursday, but Erin Wallace is scheduled Tuesday.</Guardrail>
+        <Guardrail>Megan walkthrough is Thursday morning. House Brain stays Pending until notes are saved.</Guardrail>
       </div>
 
       <div className="space-y-4">

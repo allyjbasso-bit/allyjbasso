@@ -36,11 +36,11 @@ export default async function InboxPage({ searchParams }: PageProps) {
         <p className="text-sm font-black text-emerald-300">AI Inbox Assistant</p>
         <h2 className="mt-1 text-2xl font-black">5 things need your attention today</h2>
         <div className="mt-3 space-y-2 text-sm font-bold leading-6 text-white/85">
-          <p>Reply to Kelly: draft ready.</p>
-          <p>Hannah has not confirmed walkthrough.</p>
-          <p>Noah reported broken lamp and missing towels.</p>
-          <p>Becca finished Johnson house.</p>
-          <p>Hardwood cleaner needs restocking.</p>
+          <p>Jessica confirmed tomorrow's cleaning.</p>
+          <p>Megan walkthrough needs prep.</p>
+          <p>Maryam requested refrigerator cleaning.</p>
+          <p>Emily reported Grand Blanc Airbnb ready.</p>
+          <p>Granite cleaner needs restocking.</p>
         </div>
       </section>
 

@@ -51,7 +51,7 @@ export default async function WalkthroughPage({ searchParams }: PageProps) {
           </div>
         </section>
 
-        <Field label="Client name" placeholder="Hannah Reed" />
+        <Field label="Client name" placeholder="Megan" />
         <Field label="Phone" placeholder="(555) 903-1277" />
         <Field label="Address" placeholder="913 Bayberry Lane" />
         <Checklist title="Preferred cleaning days" options={days} />
