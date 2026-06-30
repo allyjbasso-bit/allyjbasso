@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { AppShell, ComingSoonButton } from "@/components/app-shell";
 import { Icon, iconPaths } from "@/components/icons";
+import { generateReminderTextPreviews } from "@/lib/ai-mocks";
 import { assignedPeople, clients, dailyInbox, followUpReminders, inboxItems, jobs, leads, supplyInventory, turnovers, type Job, type Role } from "@/lib/mock-data";
 import { normalizeRole, personForRole, roleHref } from "@/lib/role-utils";
 
@@ -37,6 +38,7 @@ function RachelDashboard({ role }: { role: Role }) {
   const invoices = jobs.filter((job) => job.waitingForInvoice);
   const posts = jobs.filter((job) => job.waitingForPost);
   const packingList = Array.from(new Set([...(nextClient?.productsNeeded ?? []), ...supplyInventory.filter((item) => item.neededToday).map((item) => item.name)])).slice(0, 6);
+  const reminders = generateReminderTextPreviews(nextJob, nextClient);
 
   return (
     <AppShell
@@ -85,11 +87,24 @@ function RachelDashboard({ role }: { role: Role }) {
         <div className="mt-3 grid gap-2">
           {packingList.map((item) => (
             <div className="flex items-center gap-3 rounded-2xl bg-slate-50 px-3 py-3 text-sm font-black text-slate-800" key={item}>
-              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-700 text-xs text-white">✓</span>
+              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-700 text-xs text-white">OK</span>
               {item}
             </div>
           ))}
         </div>
+      </section>
+
+      <section className="mt-4 rounded-3xl bg-white p-4 shadow-sm">
+        <p className="text-sm font-black text-emerald-700">Automatic Reminder Texts</p>
+        <h2 className="mt-1 text-lg font-black text-slate-950">Draft previews only</h2>
+        <div className="mt-3 space-y-2">
+          <ReminderPreview label="Client 24 hours before" text={reminders.client} />
+          <ReminderPreview label="Cleaner tomorrow" text={reminders.cleaner} />
+          <ReminderPreview label="Morning route" text={reminders.morning} />
+          <ReminderPreview label="Walkthrough" text={reminders.walkthrough} />
+          <ReminderPreview label="Airbnb" text={reminders.airbnb} />
+        </div>
+        <p className="mt-3 text-xs font-black uppercase tracking-wide text-slate-500">Coming soon: real texting. Rachel approves before sending.</p>
       </section>
 
       <section className="mt-4 grid grid-cols-2 gap-3">
@@ -263,6 +278,15 @@ function AlertLine({ children }: { children: React.ReactNode }) {
     <div className="flex items-center gap-2 rounded-2xl bg-rose-50 px-3 py-2 text-sm font-bold text-rose-900">
       <Icon className="h-4 w-4 shrink-0" path={iconPaths.alert} />
       {children}
+    </div>
+  );
+}
+
+function ReminderPreview({ label, text }: { label: string; text: string }) {
+  return (
+    <div className="rounded-2xl bg-slate-50 px-3 py-3">
+      <p className="text-xs font-black uppercase tracking-wide text-slate-500">{label}</p>
+      <p className="mt-1 text-sm font-bold leading-6 text-slate-800">{text}</p>
     </div>
   );
 }

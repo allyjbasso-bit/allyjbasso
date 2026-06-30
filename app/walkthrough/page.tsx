@@ -1,4 +1,5 @@
 import { AppShell } from "@/components/app-shell";
+import { structureWalkthroughVoiceNote } from "@/lib/ai-mocks";
 import { normalizeRole } from "@/lib/role-utils";
 
 const floorTypes = ["Hardwood", "Tile", "Carpet", "Vinyl"];
@@ -13,6 +14,9 @@ type PageProps = {
 export default async function WalkthroughPage({ searchParams }: PageProps) {
   const { role: roleParam } = await searchParams;
   const role = normalizeRole(roleParam);
+  const voiceResult = structureWalkthroughVoiceNote(
+    "Three bedroom, two bath. Hardwood downstairs, tile upstairs. Marble countertops in the kitchen. They have two golden retrievers that shed a lot. Garage code is 1846. They want every other Thursday morning. They work from home, so don't vacuum during Zoom meetings."
+  );
 
   return (
     <AppShell role={role} title="Walkthrough Notes">
@@ -20,6 +24,31 @@ export default async function WalkthroughPage({ searchParams }: PageProps) {
         <section className="rounded-3xl bg-white p-4 shadow-sm">
           <p className="text-sm font-black text-emerald-700">Replace the paper planner</p>
           <h2 className="mt-1 text-2xl font-black text-slate-950">Save details straight into House Brain</h2>
+        </section>
+
+        <section className="rounded-3xl bg-slate-950 p-5 text-white shadow-sm">
+          <p className="text-sm font-black text-emerald-300">Walkthrough Voice Notes</p>
+          <h2 className="mt-1 text-2xl font-black">Tap once. Talk naturally. Review the structured notes.</h2>
+          <button className="tap-target mt-4 w-full rounded-2xl bg-emerald-700 px-4 py-4 text-base font-black text-white">
+            Start Walkthrough
+          </button>
+          <p className="mt-3 text-sm font-bold leading-6 text-white/75">
+            Mock speech-to-text preview. No audio is recorded in this prototype.
+          </p>
+        </section>
+
+        <section className="rounded-3xl bg-white p-4 shadow-sm">
+          <p className="text-sm font-black text-emerald-700">AI structured from voice</p>
+          <h2 className="mt-1 text-lg font-black text-slate-950">Review before saving</h2>
+          <VoiceGroup title="Client profile" items={voiceResult.clientProfile} />
+          <VoiceGroup title="House Brain notes" items={voiceResult.houseBrainNotes} />
+          <VoiceGroup title="Cleaning checklist" items={voiceResult.cleaningChecklist} />
+          <VoiceGroup title="Supplies needed" items={voiceResult.suppliesNeeded} />
+          <VoiceGroup title="Schedule preferences" items={voiceResult.schedulePreferences} />
+          <VoiceGroup title="Follow-up questions" items={voiceResult.followUpQuestions} />
+          <div className="mt-3 rounded-2xl bg-emerald-50 px-3 py-3 text-sm font-black text-emerald-900">
+            Suggested quote: {voiceResult.suggestedQuote}
+          </div>
         </section>
 
         <Field label="Client name" placeholder="Hannah Reed" />
@@ -120,5 +149,18 @@ function Checklist({ title, options }: { title: string; options: string[] }) {
         ))}
       </div>
     </fieldset>
+  );
+}
+
+function VoiceGroup({ title, items }: { title: string; items: string[] }) {
+  return (
+    <div className="mt-3 rounded-2xl bg-slate-50 px-3 py-3">
+      <p className="text-xs font-black uppercase tracking-wide text-slate-500">{title}</p>
+      <div className="mt-2 space-y-1">
+        {items.map((item) => (
+          <p className="text-sm font-bold leading-6 text-slate-800" key={item}>{item}</p>
+        ))}
+      </div>
+    </div>
   );
 }

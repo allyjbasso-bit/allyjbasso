@@ -52,8 +52,11 @@ const checklistByType: Record<Job["type"], string[]> = {
 };
 
 const completionSteps = [
-  "Upload after photos",
-  "Add notes",
+  "Did anything need extra attention?",
+  "Any damage?",
+  "Supplies running low?",
+  "Take before/after photos",
+  "Add House Brain notes",
   "AI Job Summary",
   "Generate invoice",
   "Generate Facebook post",
@@ -289,13 +292,31 @@ function CompletionPanel({ step, job, client }: { step: number; job: Job; client
   const summary = generateJobSummary(job, client);
   const panels = [
     {
-      title: "Upload after photos",
-      body: "Add the finished-room photos that prove the job is complete and keep the house record current.",
-      action: "Choose photos",
-      lines: ["After kitchen photo placeholder", "After bathroom photo placeholder"]
+      title: "Did anything need extra attention?",
+      body: "Capture anything Rachel should remember before the next visit.",
+      action: "Save attention note",
+      lines: ["Kitchen deep cleaned", "Pet hair collected around mudroom bench", "Customer requested refrigerator next visit"]
     },
     {
-      title: "Add notes",
+      title: "Any damage?",
+      body: "Record damage, maintenance issues, or anything the client should know.",
+      action: "Save damage note",
+      lines: ["No damage reported", "Optional: leaking faucet, broken lamp, wall scuff"]
+    },
+    {
+      title: "Supplies running low?",
+      body: "Update inventory before Rachel forgets what needs to be bought.",
+      action: "Update supplies",
+      lines: ["Hardwood cleaner low", "Pet hair rollers still stocked", "Stone spray needed before Nora's next clean"]
+    },
+    {
+      title: "Take before/after photos",
+      body: "Add the finished-room photos that prove the job is complete and feed Marketing Helper.",
+      action: "Choose photos",
+      lines: ["Before kitchen photo placeholder", "After kitchen photo placeholder", "After bathroom photo placeholder"]
+    },
+    {
+      title: "Add House Brain notes",
       body: "Capture voice or typed notes while the details are fresh.",
       action: "Record voice note",
       lines: [...structuredNote.pets, ...structuredNote.cleaningRequests]

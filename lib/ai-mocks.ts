@@ -6,6 +6,16 @@ export type StructuredVoiceNote = {
   houseBrainUpdates: string[];
 };
 
+export type StructuredWalkthrough = {
+  clientProfile: string[];
+  houseBrainNotes: string[];
+  cleaningChecklist: string[];
+  suppliesNeeded: string[];
+  suggestedQuote: string;
+  schedulePreferences: string[];
+  followUpQuestions: string[];
+};
+
 export function generateLeadReplyDraft(lead: Lead) {
   const missing = [
     !lead.knownDetails.location && "zip code",
@@ -25,6 +35,45 @@ export function structureVoiceNote(note: string): StructuredVoiceNote {
     pets: ["New puppy in home"],
     cleaningRequests: ["Skip the office", "Baseboards every other visit"],
     houseBrainUpdates: [`Original voice note: "${note}"`, "Save to House Brain after Rachel reviews"]
+  };
+}
+
+export function structureWalkthroughVoiceNote(note: string): StructuredWalkthrough {
+  return {
+    clientProfile: ["Three bedrooms", "Two bathrooms", "Works from home", `Original voice note: "${note}"`],
+    houseBrainNotes: [
+      "Hardwood downstairs",
+      "Tile upstairs",
+      "Marble countertops in kitchen",
+      "Garage code 1846",
+      "Do not vacuum during Zoom meetings"
+    ],
+    cleaningChecklist: [
+      "Use stone-safe product on marble",
+      "Pet hair detail on floors and upholstery",
+      "Quiet clean during work-from-home hours",
+      "Confirm upstairs tile scope"
+    ],
+    suppliesNeeded: ["Stone-safe counter spray", "Pet hair roller", "Hardwood cleaner", "Glass cleaner"],
+    suggestedQuote: "$210 - $265 every other visit",
+    schedulePreferences: ["Every other Thursday morning"],
+    followUpQuestions: ["What time are Zoom meetings usually finished?", "Should office be skipped or cleaned quietly?"]
+  };
+}
+
+export function generateReminderTextPreviews(job: Job, client?: Client) {
+  return {
+    client:
+      `Hi ${job.clientName}! Just confirming your cleaning tomorrow at ${job.time}. ` +
+      "If anything has changed, just reply to this text.",
+    cleaner:
+      `Tomorrow: ${job.clientName}, ${job.time}. Bring ${(client?.productsNeeded ?? job.alerts).slice(0, 3).join(", ")}. ` +
+      `${client?.pets ?? "Check pet notes"}. ${client?.accessNotes ?? "Check access notes"}.`,
+    morning:
+      `Good morning! You have ${job.cleaner === "Rachel" ? "your first" : "an assigned"} job today: ${job.clientName}. ` +
+      `Supplies: ${(client?.productsNeeded ?? job.alerts).slice(0, 3).join(", ")}.`,
+    walkthrough: "Reminder: Walkthrough with Hannah today at 6:00 PM.",
+    airbnb: "Guest checks out at 10:00 AM. Rachelle assigned. Missing towels reported by Noah."
   };
 }
 

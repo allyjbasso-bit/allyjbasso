@@ -32,6 +32,18 @@ export default async function InboxPage({ searchParams }: PageProps) {
         <p className="mt-2 text-sm font-semibold text-slate-500">Stop checking Angi, Facebook, texts, voicemail, and cleaner messages. {high} high priority items are collected here.</p>
       </section>
 
+      <section className="mt-4 rounded-3xl bg-slate-950 p-4 text-white shadow-sm">
+        <p className="text-sm font-black text-emerald-300">AI Inbox Assistant</p>
+        <h2 className="mt-1 text-2xl font-black">5 things need your attention today</h2>
+        <div className="mt-3 space-y-2 text-sm font-bold leading-6 text-white/85">
+          <p>Reply to Kelly: draft ready.</p>
+          <p>Hannah has not confirmed walkthrough.</p>
+          <p>Noah reported broken lamp and missing towels.</p>
+          <p>Becca finished Johnson house.</p>
+          <p>Hardwood cleaner needs restocking.</p>
+        </div>
+      </section>
+
       <section className="mt-4 space-y-3">
         {inboxItems.map((item) => (
           <article className="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm" key={item.id}>

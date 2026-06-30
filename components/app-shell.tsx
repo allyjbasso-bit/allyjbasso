@@ -34,6 +34,12 @@ export function AppShell({
         </div>
       </header>
       <main className="flex-1">{children}</main>
+      <Link
+        className="fixed bottom-24 right-4 z-30 rounded-2xl bg-slate-950 px-4 py-3 text-sm font-black text-white shadow-[0_12px_24px_rgba(15,23,42,0.22)]"
+        href={roleHref("/walkthrough", role)}
+      >
+        Mic Note
+      </Link>
       <nav className="fixed inset-x-0 bottom-0 z-30 border-t border-emerald-950/10 bg-white/95 px-2 pb-3 pt-2 shadow-[0_-8px_24px_rgba(15,23,42,0.08)] backdrop-blur">
         <div
           className={`mx-auto grid max-w-md gap-1 sm:max-w-3xl ${
